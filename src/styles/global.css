@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@layer base {
+  /* Custom base styles */
+  html {
+    font-size: 16px;
+  }
+  body {
+    @apply bg-canvas-soft text-ink antialiased;
+  }
+  /* Ensure smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Component base styles can go here */
+}
+
+@layer utilities {
+  /* Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+}

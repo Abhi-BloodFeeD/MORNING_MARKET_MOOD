@@ -1,0 +1,40 @@
+---
+// Button component
+// Variants: primary, secondary, ghost
+// Sizes: sm, md, lg
+// Props:
+//   variant: 'primary' | 'secondary' | 'ghost' (default: 'primary')
+//   size: 'sm' | 'md' | 'lg' (default: 'md')
+//   children: slot
+---
+const { variant = 'primary', size = 'md', class: className = '' } = Astro.props;
+
+// Base classes
+const base = 'rounded transition-colors font-medium disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
+
+// Variant classes
+const variants = {
+  primary: 'bg-ink text-on-primary hover:bg-ink/90',
+  secondary: 'bg-canvas text-ink hover:bg-canvas/90',
+  ghost: 'text-ink hover:bg-canvas/50',
+};
+
+// Size classes
+const sizes = {
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-10 px-4 text-base',
+  lg: 'h-12 px-5 text-lg',
+};
+
+// Combine classes
+const classes = [
+  base,
+  variants[variant],
+  sizes[size],
+  className,
+].filter(Boolean).join(' ');
+
+---
+<button class={classes} {...Astro.rest}>
+  <slot />
+</button>

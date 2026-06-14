@@ -1,11 +1,124 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Landing Page for Market Bias Predict
 ---
+<main class="min-h-screen flex flex-col">
+  <!-- Hero Section -->
+  <section class="relative flex-0 pt-20 pb-24 bg-canvas">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+        <!-- Hero Text -->
+        <div class="lg:w-1/2 space-y-6">
+          <h1 class="text-display-xl text-ink">
+            Understand Today's Market in 30 Seconds
+          </h1>
+          <p class="text-body-lg text-body">
+            AI-powered analysis of global economic and corporate events.
+          </p>
+          <div class="flex space-x-4">
+            <Button variant="primary" size="lg">
+              View Today's Bias
+            </Button>
+            <Button variant="secondary" size="lg">
+              See Historical Accuracy
+            </Button>
+          </div>
+        </div>
 
-<Layout>
-	<Welcome />
-</Layout>
+        <!-- Hero Visual (Placeholder) -->
+        <div class="lg:w-1/2 flex lg:justify-end mt-12 lg:mt-0">
+          <div class="relative w-[480px] h-[360px] bg-canvas-soft rounded-xl overflow-hidden shadow-inset-level-4">
+            <!-- TODO: Replace with actual animated market visualization -->
+            <div class="absolute inset-0 bg-gradient-to-br from-bullish/10 via-neutral/10 to-bearish/10 animate-gradient_shift">
+              <!-- Gradient animation placeholder -->
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center text-body text-muted">
+              <span class="text-2xl">📈</span>
+              <span class="ml-2">Market Visualization</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features / How it works -->
+  <section class="pt-16 pb-24 bg-canvas">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <h2 class="text-display-lg text-ink text-center mb-12">
+        How Market Bias Predict Works
+      </h2>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-center">
+        <div class="space-y-4">
+          <div class="flex h-12 w-12 items-center justify-center bg-bullish/10 rounded-lg text-bullish">
+            <span class="text-2xl">📰</span>
+          </div>
+          <h3 class="text-font-medium text-ink">News Collection</h3>
+          <p class="text-body text-muted">
+            We gather the most important economic and corporate events from global sources.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="flex h-12 w-12 items-center justify-center bg-bullish/10 rounded-lg text-bullish">
+            <span class="text-2xl">🔗</span>
+          </div>
+          <h3 class="text-font-medium text-ink">Event Correlation</h3>
+          <p class="text-body text-muted">
+            Our AI analyzes how events connect and influence each other.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="flex h-12 w-12 items-center justify-center bg-bullish/10 rounded-lg text-bullish">
+            <span class="text-2xl">📊</span>
+          </div>
+          <h3 class="text-font-medium text-ink">Bias Calculation</h3>
+          <p class="text-body text-muted">
+            We calculate market bias based on impact, sentiment, and sector exposure.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="flex h-12 w-12 items-center justify-center bg-bullish/10 rounded-lg text-bullish">
+            <span class="text-2xl">🎯</span>
+          </div>
+          <h3 class="text-font-medium text-ink">Actionable Insight</h3>
+          <p class="text-body text-muted">
+            Get a clear bullish/bearish/neutral bias with confidence score.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Band -->
+  <section class="pt-20 pb-24 bg-canvas-soft">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="flex flex-col items-center text-center space-y-8">
+        <h2 class="text-display-lg text-ink">
+          Join thousands of investors who trust our analysis
+        </h2>
+        <p class="text-body-lg text-body">
+          Start your free trial and get today's market bias delivered to your inbox.
+        </p>
+        <div class="flex space-x-4">
+          <Button variant="primary" size="lg">
+            Get Started Free
+          </Button>
+          <Button variant="secondary" size="lg">
+            Learn More
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  /* Keyframe animation for gradient placeholder */
+  @keyframes gradient_shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .animate-gradient_shift {
+    animation: gradient_shift 8s ease infinite;
+  }
+</style>
