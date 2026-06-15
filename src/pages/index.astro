@@ -30,7 +30,7 @@ const marketData = marketDataResponse.ok ? await marketDataResponse.json() : { d
 
         <!-- Hero Visual (Actual Market Data) -->
 
-        <div class="lg:w-1/2 flex lg:justify-end mt-12 lg:mt-0" >
+        <div class="lg:w-1/2 flex lg:justify-end mt-12 lg:mt-0">
           <MarketVisualization
             data={marketData.data || []}
             symbol="SPY"
