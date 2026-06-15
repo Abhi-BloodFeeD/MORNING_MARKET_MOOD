@@ -1,6 +1,10 @@
 ---
 // Landing Page for Market Bias Predict
----
+import MarketVisualization from '@/components/data-visualization/MarketVisualization.astro';
+
+// Fetch real market data for the hero visualization
+const marketDataResponse = await fetch(new URL('/api/market-data?symbol=SPY&timeframe=1d&limit=30', import.meta.env.SITE ?? 'http://localhost:4321'));
+const marketData = marketDataResponse.ok ? await marketDataResponse.json() : { data: [] };
 <main class="min-h-screen flex flex-col">
   <!-- Hero Section -->
   <section class="relative flex-0 pt-20 pb-24 bg-canvas">
@@ -24,18 +28,14 @@
           </div>
         </div>
 
-        <!-- Hero Visual (Placeholder) -->
-        <div class="lg:w-1/2 flex lg:justify-end mt-12 lg:mt-0">
-          <div class="relative w-[480px] h-[360px] bg-canvas-soft rounded-xl overflow-hidden shadow-inset-level-4">
-            <!-- TODO: Replace with actual animated market visualization -->
-            <div class="absolute inset-0 bg-gradient-to-br from-bullish/10 via-neutral/10 to-bearish/10 animate-gradient_shift">
-              <!-- Gradient animation placeholder -->
-            </div>
-            <div class="absolute inset-0 flex items-center justify-center text-body text-muted">
-              <span class="text-2xl">📈</span>
-              <span class="ml-2">Market Visualization</span>
-            </div>
-          </div>
+        <!-- Hero Visual (Actual Market Data) -->
+
+        <div class="lg:w-1/2 flex lg:justify-end mt-12 lg:mt-0" >
+          <MarketVisualization
+            data={marketData.data || []}
+            symbol="SPY"
+            class="w-[480px] h-[360px]"
+          />
         </div>
       </div>
     </div>

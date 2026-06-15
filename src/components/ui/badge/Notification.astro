@@ -1,0 +1,34 @@
+---
+// Notification component
+// Variants: default, success, warning, error, info
+// Props:
+//   variant: 'default' | 'success' | 'warning' | 'error' | 'info' (default: 'default')
+//   class: string (additional classes)
+//   children: slot
+//   ...rest: spread to div element
+---
+const { variant = 'default', class: className = '', ...rest } = Astro.props;
+
+// Base classes
+const base = 'flex items-center w-full rounded-border border p-4';
+
+// Variant classes
+const variants = {
+  default: 'bg-canvas border-canvas/30 text-ink',
+  success: 'bg-success/50 border-success/50 text-success-600',
+  warning: 'bg-warning/50 border-warning/50 text-warning-600',
+  error: 'bg-error/50 border-error/50 text-error-600',
+  info: 'bg-info/50 border-info/50 text-info-600',
+};
+
+// Combine classes
+const classes = [
+  base,
+  variants[variant],
+  className,
+].filter(Boolean).join(' ');
+</style>
+
+<div class={classes} {...rest}>
+  <slot />
+</div>

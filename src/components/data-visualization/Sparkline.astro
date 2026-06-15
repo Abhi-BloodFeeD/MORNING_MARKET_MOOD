@@ -1,0 +1,73 @@
+---
+// Sparkline component for small inline trend visualization
+// Props:
+//   data: array of numbers (required)
+//   width: number | string (default: 80)
+//   height: number | string (default: 20)
+//   lineColor: string (default: 'text-bullish')
+//   fillColor: string (default: 'bg-bullish/10')
+//   class: string (additional classes)
+//   ...rest: spread to svg element
+---
+const { data = [], width = 80, height = 20, lineColor = 'text-bullish', fillColor = 'bg-bullish/10', class: className = '', ...rest } = Astro.props;
+
+// Handle empty data
+const getPathData = (dataPoints) => {
+  if (dataPoints.length < 2) return '';
+
+  const normalized = dataPoints.map((val, index) => {
+    const minVal = Math.min(...dataPoints);
+    const maxVal = Math.max(...dataPoints);
+    const range = maxVal - minVal || 1;
+    const x = (index / (dataPoints.length - 1)) * width;
+    const y = height - ((val - minVal) / range) * height;
+    return `${index === 0 ? 'M' : 'L'}${x},${y}`;
+  }).join(' ');
+
+  return normalized;
+};
+
+const pathData = getPathData(data);
+
+// Base classes for SVG
+const svgBase = 'block';
+// Combine classes
+const svgClasses = [svgBase, className].filter(Boolean).join(' ');
+</style>
+
+<svg
+  class={svgClasses}
+  width={typeof width === 'number' ? `${width}px` : width}
+  height={typeof height === 'number' ? `${height}px` : height}
+  viewBox={`0 0 ${width} ${height}`}
+  fill="none"
+  {...rest}
+>
+  {data.length >= 2 && (
+    <>
+      <path
+        d={pathData}
+        stroke="currentColor"
+        stroke-width="1"
+        class={lineColor}
+      />
+      <path
+        d={`${pathData} L${width},${height} L0,${height} Z`}
+        fill="currentColor"
+        class={fillColor}
+      />
+    </>
+  )}
+  {data.length < 2 && (
+    <text
+      x="50%"
+      y="50%"
+      dominant-baseline="middle"
+      text-anchor="middle"
+      fill="currentColor"
+      class="text-xs text-muted"
+    >
+      —
+    </text>
+  )}
+</svg>

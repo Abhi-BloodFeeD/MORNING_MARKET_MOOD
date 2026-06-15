@@ -1,0 +1,19 @@
+---
+// Navigation bar component
+// Props:
+//   class: string (additional classes)
+//   children: slot (typically NavLink and NavCTA components)
+//   ...rest: spread to nav element
+---
+const { class: className = '', ...rest } = Astro.props;
+
+// Base classes
+const base = '';
+
+// Combine classes
+const classes = [base, className].filter(Boolean).join(' ');
+</style>
+
+<nav class={classes} {...rest}>
+  <slot />
+</nav>

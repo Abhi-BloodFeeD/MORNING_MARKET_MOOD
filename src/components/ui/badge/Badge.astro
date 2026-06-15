@@ -1,0 +1,44 @@
+---
+// Badge component
+// Variants: primary, secondary, success, warning, error, info
+// Sizes: sm, md
+// Props:
+//   variant: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' (default: 'secondary')
+//   size: 'sm' | 'md' (default: 'md')
+//   class: string (additional classes)
+//   children: slot
+//   ...rest: spread to span element
+---
+const { variant = 'secondary', size = 'md', class: className = '', ...rest } = Astro.props;
+
+// Base classes
+const base = 'inline-flex items-center px-2.5 rounded-text text-xs font-medium';
+
+// Variant classes
+const variants = {
+  primary: 'bg-primary/20 text-primary',
+  secondary: 'bg-muted/20 text-muted',
+  success: 'bg-success/20 text-success',
+  warning: 'bg-warning/20 text-warning',
+  error: 'bg-error/20 text-error',
+  info: 'bg-info/20 text-info',
+};
+
+// Size classes
+const sizes = {
+  sm: 'px-2',
+  md: 'px-2.5',
+};
+
+// Combine classes
+const classes = [
+  base,
+  variants[variant],
+  sizes[size],
+  className,
+].filter(Boolean).join(' ');
+</style>
+
+<span class={classes} {...rest}>
+  <slot />
+</span>

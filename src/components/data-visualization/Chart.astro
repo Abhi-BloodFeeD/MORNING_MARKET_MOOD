@@ -1,0 +1,31 @@
+---
+// Chart component placeholder - can be extended with charting libraries
+// Props:
+//   type: 'line' | 'bar' | 'area' | 'pie' (default: 'line')
+//   data: array (required for actual chart)
+//   labels: array (optional, for x-axis labels)
+//   height: number | string (default: 200)
+//   width: number | string (default: 100%)
+//   class: string (additional classes)
+//   ...rest: spread to div element
+---
+const { type = 'line', data = [], labels = [], height = 200, width = '100%', class: className = '', ...rest } = Astro.props;
+
+// Base classes
+const base = 'relative w-full';
+
+// Combine classes
+const classes = [base, className].filter(Boolean).join(' ');
+</style>
+
+<div class={classes} style={{ height: typeof height === 'number' ? `${height}px` : height, width: typeof width === 'number' ? `${width}px` : width }} {...rest}>
+  {data.length > 0 ? (
+    <div class="absolute inset-0 flex items-center justify-center text-muted">
+      Chart ({type.toUpperCase()}) - {data.length} data points
+    </div>
+  ) : (
+    <div class="absolute inset-0 flex items-center justify-center text-muted">
+      No chart data available
+    </div>
+  )}
+</div>

@@ -1,0 +1,30 @@
+---
+// Navigation call-to-action component
+// Props:
+//   href: string (optional, if provided renders as link, otherwise button)
+//   variant: 'primary' | 'secondary' (default: 'primary')
+//   size: 'sm' | 'md' (default: 'sm')
+//   class: string (additional classes)
+//   children: slot
+//   ...rest: spread to button/link element
+---
+import Button from '@/components/ui/button/Button.astro';
+
+const { href, variant = 'primary', size = 'sm', class: className = '', ...rest } = Astro.props;
+
+// Base classes for link variant
+const linkBase = 'text-sm font-medium transition-colors hover:text-bullish';
+
+// Combine classes for link
+const linkClasses = [linkBase, className].filter(Boolean).join(' ');
+</style>
+
+{href ? (
+  <a href={href} class={linkClasses} {...rest}>
+    <slot />
+  </a>
+) : (
+  <Button variant={variant} size={size} class={className} {...rest}>
+    <slot />
+  </Button>
+)}

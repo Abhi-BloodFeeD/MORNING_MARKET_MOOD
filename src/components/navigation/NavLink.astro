@@ -1,0 +1,24 @@
+---
+// Navigation link component
+// Props:
+//   href: string (required)
+//   active: boolean (optional, default: false)
+//   class: string (additional classes)
+//   children: slot
+//   ...rest: spread to anchor element
+---
+const { href, active = false, class: className = '', ...rest } = Astro.props;
+
+// Base classes
+const base = 'text-body transition-colors hover:text-bullish';
+
+// Active state classes
+const activeClasses = active ? 'text-bullish font-medium' : '';
+
+// Combine classes
+const classes = [base, activeClasses, className].filter(Boolean).join(' ');
+</style>
+
+<a href={href} class={classes} {...rest}>
+  <slot />
+</a>

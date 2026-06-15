@@ -1,0 +1,127 @@
+---
+// Form input component with validation support
+// Variants: default, error, success
+// Sizes: sm, md, lg
+// Types: text, email, password, textarea, select, etc.
+// Props:
+//   type: 'text' | 'email' | 'password' | 'textarea' | 'select' (default: 'text')
+//   variant: 'default' | 'error' | 'success' (default: 'default')
+//   size: 'sm' | 'md' | 'lg' (default: 'md')
+//   label: string (optional)
+//   placeholder: string (optional)
+//   value: any (bound value)
+//   options: array (for select type)
+//   error: string | boolean (error message or boolean for error state)
+//   required: boolean (default: false)
+//   class: string (additional classes)
+//   ...rest: spread to input element
+---
+const {
+  type = 'text',
+  variant = 'default',
+  size = 'md',
+  label,
+  placeholder = '',
+  value,
+  options = [],
+  error = false,
+  required = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Determine if we should show error state
+const showError = variant === 'error' || !!error;
+
+// Base classes
+const base = 'block w-full rounded border';
+
+const variantClasses = {
+  default: 'border-canvas/30 bg-canvas/50 placeholder:text-muted/60 text-ink focus:border-bullish focus:ring-2 focus:ring-bullish/20 focus:bg-canvas',
+  error: 'border-red-500 bg-red-50 placeholder:text-red-400 text-red-600 focus:border-red-400 focus:ring-2 focus:ring-red-200 focus:bg-red-50',
+  success: 'border-green-500 bg-green-50 placeholder:text-green-400 text-green-600 focus:border-green-400 focus:ring-2 focus:ring-green-200 focus:bg-green-50',
+};
+
+const sizeClasses = {
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-10 px-4 text-base',
+  lg: 'h-12 px-5 text-lg',
+};
+
+// Combine classes
+const inputClasses = [
+  base,
+  variantClasses[variant],
+  sizeClasses[size],
+  className,
+].filter(Boolean).join(' ');
+
+// Error message ID for accessibility
+const errorId = `error-${Math.random().toString(36).substr(2, 9)}`;
+</style>
+
+{label && (
+  <label class="mb-2 block text-sm font-medium text-ink" for={label?.toLowerCase().replace(/\s+/g, '-') || undefined}>
+    {label}
+    {required && <span class="text-red-500">*</span>}
+  </label>
+)}
+
+{type === 'textarea' ? (
+  <>
+    <textarea
+      id={label?.toLowerCase().replace(/\s+/g, '-') || undefined}
+      class={inputClasses}
+      placeholder={placeholder}
+      bind:value
+      aria-invalid={showError}
+      aria-describedby={showError ? errorId : undefined}
+      {...rest}
+    />
+    {showError && (
+      <p id={errorId} class="mt-1 block text-sm text-red-500">
+        {typeof error === 'string' ? error : 'Please fix this field'}
+      </p>
+    )}
+  </>
+) : type === 'select' ? (
+  <>
+    <select
+      id={label?.toLowerCase().replace(/\s+/g, '-') || undefined}
+      class={inputClasses}
+      bind:value
+      aria-invalid={showError}
+      aria-describedby={showError ? errorId : undefined}
+      {...rest}
+    >
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+    {showError && (
+      <p id={errorId} class="mt-1 block text-sm text-red-500">
+        {typeof error === 'string' ? error : 'Please select an option'}
+      </p>
+    )}
+  </>
+) : (
+  <>
+    <input
+      type={type}
+      id={label?.toLowerCase().replace(/\s+/g, '-') || undefined}
+      class={inputClasses}
+      placeholder={placeholder}
+      bind:value
+      aria-invalid={showError}
+      aria-describedby={showError ? errorId : undefined}
+      {...rest}
+    />
+    {showError && (
+      <p id={errorId} class="mt-1 block text-sm text-red-500">
+        {typeof error === 'string' ? error : 'Please fix this field'}
+      </p>
+    )}
+  </>
+)}
